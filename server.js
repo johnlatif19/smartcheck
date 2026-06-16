@@ -110,11 +110,7 @@ const isAdmin = (req, res, next) => {
   }
 };
 
-// ==================== Login Routes ====================
-
-// Admin Login
-
-// ==================== Signup Route ====================
+// ==================== Auth Routes ====================
 
 // User Signup
 app.post('/api/signup',
@@ -189,7 +185,7 @@ app.post('/api/signup',
   }
 );
 
-// Admin Login (Modified to check Firestore users)
+// User Login
 app.post('/api/login',
   body('username').isString().notEmpty().trim(),
   body('password').isString().notEmpty().trim(),
@@ -575,7 +571,15 @@ app.get('/api/report/:reportId',
 );
 
 // ==================== Serve React App ====================
-app.get('*', (req, res) => {
+app.get('/login', (req, res) => {
+  res.sendFile(__dirname + '/public/login.html');
+});
+
+app.get('/signup', (req, res) => {
+  res.sendFile(__dirname + '/public/signup.html');
+});
+
+app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
