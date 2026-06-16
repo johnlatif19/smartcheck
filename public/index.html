@@ -364,14 +364,12 @@
             if (currentLang === 'ar') {
                 currentLang = 'en';
                 root.className = 'lang-en';
-                langLabel.textContent = '🇸🇦';
                 langText.textContent = 'AR';
                 document.documentElement.dir = 'ltr';
                 document.documentElement.lang = 'en';
             } else {
                 currentLang = 'ar';
                 root.className = 'lang-ar';
-                langLabel.textContent = '🇺🇸';
                 langText.textContent = 'EN';
                 document.documentElement.dir = 'rtl';
                 document.documentElement.lang = 'ar';
@@ -395,13 +393,11 @@
             
             if (currentLang === 'en') {
                 root.className = 'lang-en';
-                langLabel.textContent = '🇸🇦';
                 langText.textContent = 'AR';
                 document.documentElement.dir = 'ltr';
                 document.documentElement.lang = 'en';
             } else {
                 root.className = 'lang-ar';
-                langLabel.textContent = '🇺🇸';
                 langText.textContent = 'EN';
                 document.documentElement.dir = 'rtl';
                 document.documentElement.lang = 'ar';
@@ -516,7 +512,7 @@
                 if (response.status === 401) {
                     localStorage.removeItem('smartcheck_token');
                     currentToken = null;
-                    window.location.href = '/login';
+                    window.location.href = '/login.html';
                     return;
                 }
                 
