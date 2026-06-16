@@ -23,6 +23,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background-image: radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.05) 0%, transparent 50%),
+                              radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.05) 0%, transparent 50%);
         }
         
         .gradient-bg {
@@ -30,9 +32,9 @@
         }
         
         .glass-effect {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
         .glow {
@@ -40,28 +42,30 @@
         }
         
         @keyframes glow {
-            from { text-shadow: 0 0 10px rgba(102, 126, 234, 0.5); }
-            to { text-shadow: 0 0 20px rgba(102, 126, 234, 0.8), 0 0 30px rgba(102, 126, 234, 0.4); }
+            from { text-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
+            to { text-shadow: 0 0 40px rgba(102, 126, 234, 0.6), 0 0 60px rgba(118, 75, 162, 0.3); }
         }
         
         .input-field {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 14px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 16px 18px;
             width: 100%;
             color: white;
             transition: all 0.3s ease;
+            font-size: 15px;
         }
         
         .input-field:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.1);
+            background: rgba(255, 255, 255, 0.08);
         }
         
         .input-field::placeholder {
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.3);
         }
         
         .input-field.error {
@@ -75,73 +79,81 @@
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
-            border-radius: 12px;
-            padding: 14px;
+            border-radius: 14px;
+            padding: 16px;
             width: 100%;
             color: white;
-            font-weight: 600;
-            font-size: 16px;
+            font-weight: 700;
+            font-size: 17px;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
         }
         
         .btn-primary:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none !important;
         }
         
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 14px;
-            width: 100%;
-            color: white;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
         }
         
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .btn-primary:hover::after {
+            left: 100%;
         }
         
         .link-text {
             color: #667eea;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-weight: 500;
         }
         
         .link-text:hover {
-            color: #764ba2;
+            color: #8b7cf7;
             text-decoration: underline;
         }
         
         .toast {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 16px 24px;
-            border-radius: 12px;
+            top: 30px;
+            right: 30px;
+            padding: 16px 28px;
+            border-radius: 14px;
             color: white;
             font-weight: 500;
             z-index: 1000;
             animation: slideIn 0.5s ease;
             display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
         
         .toast-success {
-            background: rgba(34, 197, 94, 0.9);
+            background: linear-gradient(135deg, #22c55e, #16a34a);
         }
         
         .toast-error {
-            background: rgba(239, 68, 68, 0.9);
+            background: linear-gradient(135deg, #ef4444, #dc2626);
         }
         
         @keyframes slideIn {
@@ -168,22 +180,36 @@
             font-family: 'Tajawal', 'Segoe UI', sans-serif;
         }
         
-        .password-strength {
-            height: 4px;
-            border-radius: 2px;
-            margin-top: 8px;
-            transition: all 0.3s ease;
-            background: rgba(255,255,255,0.1);
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
         }
         
-        .password-strength.weak { background: #ef4444; width: 33%; }
-        .password-strength.medium { background: #eab308; width: 66%; }
-        .password-strength.strong { background: #22c55e; width: 100%; }
+        .password-strength {
+            height: 4px;
+            border-radius: 4px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.06);
+        }
+        
+        .password-strength.weak { background: linear-gradient(90deg, #ef4444, #f87171); width: 33%; }
+        .password-strength.medium { background: linear-gradient(90deg, #eab308, #facc15); width: 66%; }
+        .password-strength.strong { background: linear-gradient(90deg, #22c55e, #4ade80); width: 100%; }
         
         .password-requirements {
             font-size: 12px;
-            color: rgba(255,255,255,0.5);
-            margin-top: 4px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         
         .password-requirements .valid {
@@ -192,6 +218,48 @@
         
         .password-requirements .invalid {
             color: #ef4444;
+        }
+        
+        .requirement-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+        }
+        
+        .social-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 12px;
+            width: 100%;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .social-btn:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -203,76 +271,76 @@
         <!-- Main Container -->
         <div class="w-full max-w-md px-4">
             <!-- Logo -->
-            <div class="text-center mb-8">
-                <div class="w-20 h-20 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div class="text-center mb-10">
+                <div class="logo-icon gradient-bg">
                     <i class="ri-smartphone-line text-white text-3xl"></i>
                 </div>
-                <h1 class="text-3xl font-bold glow">SmartCheck</h1>
-                <p class="text-gray-400 mt-2" data-ar="منصة فحص الأجهزة الاحترافية" data-en="Professional Device Testing Platform">
+                <h1 class="text-4xl font-extrabold glow">SmartCheck</h1>
+                <p class="text-gray-400 mt-2 text-sm" data-ar="منصة فحص الأجهزة الاحترافية" data-en="Professional Device Testing Platform">
                     منصة فحص الأجهزة الاحترافية
                 </p>
             </div>
             
             <!-- Language Toggle -->
             <div class="flex justify-end mb-4">
-                <button onclick="toggleLanguage()" class="text-gray-400 hover:text-white transition-colors flex items-center space-x-2 space-x-reverse">
+                <button onclick="toggleLanguage()" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
                     <span id="langLabel">🇸🇦</span>
-                    <span id="langText" class="text-sm">AR</span>
+                    <span id="langText" class="font-medium">AR</span>
                 </button>
             </div>
             
             <!-- Signup Card -->
             <div class="glass-effect rounded-2xl p-8">
-                <h2 class="text-2xl font-bold mb-2" data-ar="إنشاء حساب جديد" data-en="Create Account">إنشاء حساب جديد</h2>
-                <p class="text-gray-400 mb-6" data-ar="سجل للحصول على تجربة SmartCheck كاملة" data-en="Sign up for the full SmartCheck experience">
+                <h2 class="text-2xl font-bold mb-2" data-ar="إنشاء حساب جديد 🚀" data-en="Create Account 🚀">إنشاء حساب جديد 🚀</h2>
+                <p class="text-gray-400 mb-8 text-sm" data-ar="سجل للحصول على تجربة SmartCheck كاملة" data-en="Sign up for the full SmartCheck experience">
                     سجل للحصول على تجربة SmartCheck كاملة
                 </p>
                 
                 <form id="signupForm" onsubmit="handleSignup(event)">
                     <div class="mb-4">
-                        <label class="block text-gray-300 mb-2" data-ar="الاسم الكامل" data-en="Full Name">الاسم الكامل</label>
+                        <label class="block text-gray-300 mb-2 text-sm font-medium" data-ar="الاسم الكامل" data-en="Full Name">الاسم الكامل</label>
                         <input type="text" id="fullName" required 
                                placeholder="أدخل اسمك الكامل"
                                class="input-field">
                     </div>
                     
                     <div class="mb-4">
-                        <label class="block text-gray-300 mb-2" data-ar="اسم المستخدم" data-en="Username">اسم المستخدم</label>
+                        <label class="block text-gray-300 mb-2 text-sm font-medium" data-ar="اسم المستخدم" data-en="Username">اسم المستخدم</label>
                         <input type="text" id="signupUsername" required 
                                placeholder="أدخل اسم المستخدم"
                                class="input-field">
                     </div>
                     
                     <div class="mb-4">
-                        <label class="block text-gray-300 mb-2" data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني</label>
+                        <label class="block text-gray-300 mb-2 text-sm font-medium" data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني</label>
                         <input type="email" id="signupEmail" required 
                                placeholder="أدخل البريد الإلكتروني"
                                class="input-field">
                     </div>
                     
                     <div class="mb-2">
-                        <label class="block text-gray-300 mb-2" data-ar="كلمة المرور" data-en="Password">كلمة المرور</label>
+                        <label class="block text-gray-300 mb-2 text-sm font-medium" data-ar="كلمة المرور" data-en="Password">كلمة المرور</label>
                         <input type="password" id="signupPassword" required 
                                placeholder="أدخل كلمة المرور (8 أحرف على الأقل)"
                                class="input-field"
                                oninput="checkPasswordStrength(this.value)">
                         <div class="password-strength" id="passwordStrength"></div>
                         <div class="password-requirements" id="passwordRequirements">
-                            <span data-ar="• 8 أحرف على الأقل" data-en="• At least 8 characters">• 8 أحرف على الأقل</span>
+                            <span class="requirement-item" data-ar="🔒 8 أحرف على الأقل" data-en="🔒 At least 8 characters">🔒 8 أحرف على الأقل</span>
                         </div>
                     </div>
                     
                     <div class="mb-6">
-                        <label class="block text-gray-300 mb-2" data-ar="تأكيد كلمة المرور" data-en="Confirm Password">تأكيد كلمة المرور</label>
+                        <label class="block text-gray-300 mb-2 text-sm font-medium" data-ar="تأكيد كلمة المرور" data-en="Confirm Password">تأكيد كلمة المرور</label>
                         <input type="password" id="confirmPassword" required 
                                placeholder="أعد إدخال كلمة المرور"
                                class="input-field">
                     </div>
                     
-                    <div class="mb-4">
-                        <div class="flex items-center">
-                            <input type="checkbox" id="agreeTerms" required class="w-4 h-4 rounded border-gray-600 bg-transparent">
-                            <label for="agreeTerms" class="mr-2 text-sm text-gray-400">
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="agreeTerms" required class="w-4 h-4 rounded border-gray-600 bg-transparent accent-purple-500">
+                            <label for="agreeTerms" class="text-sm text-gray-400 cursor-pointer">
                                 <span data-ar="أوافق على" data-en="I agree to the">أوافق على</span>
                                 <span class="link-text" data-ar="الشروط والأحكام" data-en="Terms & Conditions">الشروط والأحكام</span>
                             </label>
@@ -280,12 +348,28 @@
                     </div>
                     
                     <button type="submit" class="btn-primary" data-ar="إنشاء حساب" data-en="Create Account">
+                        <i class="ri-user-add-line ml-2"></i>
                         إنشاء حساب
                     </button>
                 </form>
                 
+                <div class="divider">
+                    <span class="text-xs text-gray-500">أو</span>
+                </div>
+                
+                <div class="flex gap-3">
+                    <button class="social-btn flex-1">
+                        <i class="ri-google-fill text-red-400"></i>
+                        Google
+                    </button>
+                    <button class="social-btn flex-1">
+                        <i class="ri-apple-fill text-white"></i>
+                        Apple
+                    </button>
+                </div>
+                
                 <div class="mt-6 text-center">
-                    <p class="text-gray-400">
+                    <p class="text-gray-400 text-sm">
                         <span data-ar="لديك حساب بالفعل؟" data-en="Already have an account?">لديك حساب بالفعل؟</span>
                         <span class="link-text" onclick="goToLogin()" data-ar="تسجيل الدخول" data-en="Login">
                             تسجيل الدخول
@@ -296,7 +380,7 @@
             
             <!-- Footer -->
             <div class="text-center mt-8">
-                <p class="text-gray-500 text-sm">© 2026 SmartCheck. All rights reserved.</p>
+                <p class="text-gray-500 text-xs">© 2026 SmartCheck. All rights reserved.</p>
             </div>
         </div>
     </div>
@@ -379,6 +463,8 @@
             const requirements = document.getElementById('passwordRequirements');
             
             let strength = 0;
+            let messages = [];
+            
             if (password.length >= 8) strength++;
             if (password.match(/[a-z]/)) strength++;
             if (password.match(/[A-Z]/)) strength++;
@@ -389,18 +475,19 @@
             
             if (password.length === 0) {
                 strengthBar.style.width = '0%';
+                requirements.innerHTML = `<span class="requirement-item">${currentLang === 'ar' ? '🔒 8 أحرف على الأقل' : '🔒 At least 8 characters'}</span>`;
                 return;
             }
             
             if (strength <= 2) {
                 strengthBar.classList.add('weak');
-                requirements.innerHTML = `<span class="invalid">${currentLang === 'ar' ? '🔴 كلمة مرور ضعيفة' : '🔴 Weak password'}</span>`;
+                requirements.innerHTML = `<span class="requirement-item invalid">${currentLang === 'ar' ? '🔴 كلمة مرور ضعيفة' : '🔴 Weak password'}</span>`;
             } else if (strength <= 3) {
                 strengthBar.classList.add('medium');
-                requirements.innerHTML = `<span class="valid">${currentLang === 'ar' ? '🟡 كلمة مرور متوسطة' : '🟡 Medium password'}</span>`;
+                requirements.innerHTML = `<span class="requirement-item valid">${currentLang === 'ar' ? '🟡 كلمة مرور متوسطة' : '🟡 Medium password'}</span>`;
             } else {
                 strengthBar.classList.add('strong');
-                requirements.innerHTML = `<span class="valid">${currentLang === 'ar' ? '🟢 كلمة مرور قوية' : '🟢 Strong password'}</span>`;
+                requirements.innerHTML = `<span class="requirement-item valid">${currentLang === 'ar' ? '🟢 كلمة مرور قوية' : '🟢 Strong password'}</span>`;
             }
         }
         
@@ -410,7 +497,7 @@
         }
         
         function goToDashboard() {
-            window.location.href = '/index';
+            window.location.href = '/home';
         }
         
         // ============ Signup Handler ============
@@ -424,10 +511,9 @@
             const confirmPassword = document.getElementById('confirmPassword').value;
             const agreeTerms = document.getElementById('agreeTerms').checked;
             
-            // Validation
             if (!fullName || !username || !email || !password) {
                 showToast(
-                    currentLang === 'ar' ? 'الرجاء ملء جميع الحقول' : 'Please fill all fields',
+                    currentLang === 'ar' ? '⚠️ الرجاء ملء جميع الحقول' : '⚠️ Please fill all fields',
                     'error'
                 );
                 return;
@@ -435,7 +521,7 @@
             
             if (password.length < 8) {
                 showToast(
-                    currentLang === 'ar' ? 'كلمة المرور يجب أن تكون 8 أحرف على الأقل' : 'Password must be at least 8 characters',
+                    currentLang === 'ar' ? '⚠️ كلمة المرور يجب أن تكون 8 أحرف على الأقل' : '⚠️ Password must be at least 8 characters',
                     'error'
                 );
                 return;
@@ -443,7 +529,7 @@
             
             if (password !== confirmPassword) {
                 showToast(
-                    currentLang === 'ar' ? 'كلمات المرور غير متطابقة' : 'Passwords do not match',
+                    currentLang === 'ar' ? '⚠️ كلمات المرور غير متطابقة' : '⚠️ Passwords do not match',
                     'error'
                 );
                 return;
@@ -451,7 +537,7 @@
             
             if (!agreeTerms) {
                 showToast(
-                    currentLang === 'ar' ? 'يرجى الموافقة على الشروط والأحكام' : 'Please agree to the Terms & Conditions',
+                    currentLang === 'ar' ? '⚠️ يرجى الموافقة على الشروط والأحكام' : '⚠️ Please agree to the Terms & Conditions',
                     'error'
                 );
                 return;
@@ -470,11 +556,10 @@
                 
                 if (data.success) {
                     showToast(
-                        currentLang === 'ar' ? '✅ تم إنشاء الحساب بنجاح! مرحباً ' + fullName : '✅ Account created successfully! Welcome ' + fullName,
+                        currentLang === 'ar' ? `✅ تم إنشاء الحساب بنجاح! مرحباً ${fullName}` : `✅ Account created successfully! Welcome ${fullName}`,
                         'success'
                     );
                     
-                    // Auto login after signup
                     setTimeout(async () => {
                         const loginResponse = await fetch('/api/login', {
                             method: 'POST',
@@ -494,7 +579,7 @@
                     }, 1500);
                 } else {
                     showToast(
-                        currentLang === 'ar' ? '❌ ' + (data.error || 'فشل إنشاء الحساب') : '❌ ' + (data.error || 'Signup failed'),
+                        currentLang === 'ar' ? `❌ ${data.error || 'فشل إنشاء الحساب'}` : `❌ ${data.error || 'Signup failed'}`,
                         'error'
                     );
                 }
@@ -511,7 +596,7 @@
         function checkAuth() {
             const token = localStorage.getItem('smartcheck_token');
             if (token) {
-                window.location.href = '/index';
+                window.location.href = '/home';
             }
         }
         
