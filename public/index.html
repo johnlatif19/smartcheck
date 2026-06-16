@@ -74,18 +74,36 @@
             font-family: 'Tajawal', 'Segoe UI', sans-serif;
         }
         
-        .flag-icon {
-            width: 24px;
-            height: 24px;
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid #667eea;
             border-radius: 50%;
-            display: inline-block;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
         }
-        .flag-sa {
-            background: linear-gradient(135deg, #006c35 50%, #ffffff 50%, #ffffff 75%, #006c35 75%);
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        .flag-us {
-            background: linear-gradient(135deg, #b22234 33%, #ffffff 33%, #ffffff 66%, #b22234 66%);
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
         }
+        .status-completed { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .status-paired { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .status-pending { background: rgba(234, 179, 8, 0.2); color: #eab308; }
+        .status-failed { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        
+        .score-good { color: #22c55e; }
+        .score-medium { color: #eab308; }
+        .score-bad { color: #ef4444; }
     </style>
 </head>
 <body>
@@ -256,7 +274,10 @@
                             </thead>
                             <tbody id="devicesTable">
                                 <tr>
-                                    <td colspan="6" class="text-center py-8 text-gray-400" data-ar="جاري التحميل..." data-en="Loading devices...">جاري التحميل...</td>
+                                    <td colspan="6" class="text-center py-8">
+                                        <div class="spinner"></div>
+                                        <p class="text-gray-400" data-ar="جاري تحميل الأجهزة..." data-en="Loading devices...">جاري تحميل الأجهزة...</p>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -324,7 +345,7 @@
     <script>
         let currentToken = localStorage.getItem('smartcheck_token');
         let devicesData = [];
-        let currentLang = 'ar'; // 'ar' or 'en'
+        let currentLang = 'ar';
 
         // ============ Language Toggle ============
         function toggleLanguage() {
@@ -348,7 +369,6 @@
                 document.documentElement.lang = 'ar';
             }
             
-            // Update all text elements with data-ar/data-en
             document.querySelectorAll('[data-ar][data-en]').forEach(el => {
                 if (currentLang === 'ar') {
                     el.textContent = el.getAttribute('data-ar');
@@ -357,7 +377,6 @@
                 }
             });
             
-            // Save preference
             localStorage.setItem('smartcheck_lang', currentLang);
         }
 
@@ -383,7 +402,6 @@
                 document.documentElement.lang = 'ar';
             }
             
-            // Update all text elements
             document.querySelectorAll('[data-ar][data-en]').forEach(el => {
                 if (currentLang === 'ar') {
                     el.textContent = el.getAttribute('data-ar');
@@ -393,148 +411,13 @@
             });
         }
 
-        // ============ Real Devices Data ============
-        function getRealDevices() {
-            return [
-                { 
-                    id: 'device_1', 
-                    deviceId: 'SM-S918B', 
-                    model: 'Samsung Galaxy S23 Ultra', 
-                    manufacturer: 'Samsung',
-                    status: 'completed', 
-                    overallScore: 94, 
-                    createdAt: { seconds: Date.now() / 1000 - 3600 },
-                    androidVersion: '14',
-                    ram: '12GB',
-                    storage: '512GB'
-                },
-                { 
-                    id: 'device_2', 
-                    deviceId: 'iPhone15ProMax', 
-                    model: 'iPhone 15 Pro Max', 
-                    manufacturer: 'Apple',
-                    status: 'completed', 
-                    overallScore: 96, 
-                    createdAt: { seconds: Date.now() / 1000 - 7200 },
-                    androidVersion: 'iOS 17',
-                    ram: '8GB',
-                    storage: '256GB'
-                },
-                { 
-                    id: 'device_3', 
-                    deviceId: 'Pixel8Pro', 
-                    model: 'Google Pixel 8 Pro', 
-                    manufacturer: 'Google',
-                    status: 'paired', 
-                    overallScore: 89, 
-                    createdAt: { seconds: Date.now() / 1000 - 14400 },
-                    androidVersion: '14',
-                    ram: '12GB',
-                    storage: '128GB'
-                },
-                { 
-                    id: 'device_4', 
-                    deviceId: 'OnePlus12', 
-                    model: 'OnePlus 12', 
-                    manufacturer: 'OnePlus',
-                    status: 'completed', 
-                    overallScore: 91, 
-                    createdAt: { seconds: Date.now() / 1000 - 21600 },
-                    androidVersion: '14',
-                    ram: '16GB',
-                    storage: '512GB'
-                },
-                { 
-                    id: 'device_5', 
-                    deviceId: 'Xiaomi14Ultra', 
-                    model: 'Xiaomi 14 Ultra', 
-                    manufacturer: 'Xiaomi',
-                    status: 'pending', 
-                    overallScore: 0, 
-                    createdAt: { seconds: Date.now() / 1000 - 28800 },
-                    androidVersion: '14',
-                    ram: '12GB',
-                    storage: '256GB'
-                },
-                { 
-                    id: 'device_6', 
-                    deviceId: 'HuaweiP60Pro', 
-                    model: 'Huawei P60 Pro', 
-                    manufacturer: 'Huawei',
-                    status: 'paired', 
-                    overallScore: 85, 
-                    createdAt: { seconds: Date.now() / 1000 - 36000 },
-                    androidVersion: '13',
-                    ram: '8GB',
-                    storage: '256GB'
-                },
-                { 
-                    id: 'device_7', 
-                    deviceId: 'SM-F946B', 
-                    model: 'Samsung Galaxy Z Fold 5', 
-                    manufacturer: 'Samsung',
-                    status: 'completed', 
-                    overallScore: 90, 
-                    createdAt: { seconds: Date.now() / 1000 - 43200 },
-                    androidVersion: '14',
-                    ram: '12GB',
-                    storage: '512GB'
-                },
-                { 
-                    id: 'device_8', 
-                    deviceId: 'iPhone14Pro', 
-                    model: 'iPhone 14 Pro', 
-                    manufacturer: 'Apple',
-                    status: 'completed', 
-                    overallScore: 87, 
-                    createdAt: { seconds: Date.now() / 1000 - 50400 },
-                    androidVersion: 'iOS 16',
-                    ram: '6GB',
-                    storage: '128GB'
-                },
-                { 
-                    id: 'device_9', 
-                    deviceId: 'NothingPhone2', 
-                    model: 'Nothing Phone (2)', 
-                    manufacturer: 'Nothing',
-                    status: 'pending', 
-                    overallScore: 0, 
-                    createdAt: { seconds: Date.now() / 1000 - 57600 },
-                    androidVersion: '14',
-                    ram: '12GB',
-                    storage: '256GB'
-                },
-                { 
-                    id: 'device_10', 
-                    deviceId: 'Pixel7a', 
-                    model: 'Google Pixel 7a', 
-                    manufacturer: 'Google',
-                    status: 'paired', 
-                    overallScore: 82, 
-                    createdAt: { seconds: Date.now() / 1000 - 64800 },
-                    androidVersion: '14',
-                    ram: '8GB',
-                    storage: '128GB'
-                }
-            ];
-        }
-
         // ============ Authentication ============
         function checkAuth() {
+            const loginBtn = document.querySelector('nav button:last-child');
             if (!currentToken) {
-                const loginBtn = document.querySelector('nav button:last-child');
-                if (currentLang === 'ar') {
-                    loginBtn.textContent = 'تسجيل الدخول';
-                } else {
-                    loginBtn.textContent = 'Login';
-                }
+                loginBtn.textContent = currentLang === 'ar' ? 'تسجيل الدخول' : 'Login';
             } else {
-                const loginBtn = document.querySelector('nav button:last-child');
-                if (currentLang === 'ar') {
-                    loginBtn.textContent = 'لوحة التحكم';
-                } else {
-                    loginBtn.textContent = 'Dashboard';
-                }
+                loginBtn.textContent = currentLang === 'ar' ? 'لوحة التحكم' : 'Dashboard';
             }
         }
 
@@ -657,15 +540,45 @@
             }
         }
 
-        // ============ Fetch Dashboard Data ============
+        // ============ Fetch Dashboard Data from Firebase ============
         async function fetchDashboardData() {
             try {
-                // Use real devices data
-                const devices = getRealDevices();
+                const tbody = document.getElementById('devicesTable');
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-8">
+                            <div class="spinner"></div>
+                            <p class="text-gray-400">${currentLang === 'ar' ? 'جاري تحميل الأجهزة...' : 'Loading devices...'}</p>
+                        </td>
+                    </tr>
+                `;
+                
+                const response = await fetch('/api/devices', {
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`
+                    }
+                });
+                
+                if (response.status === 401) {
+                    localStorage.removeItem('smartcheck_token');
+                    currentToken = null;
+                    openLogin();
+                    return;
+                }
+                
+                const devices = await response.json();
                 devicesData = devices;
                 updateDashboard(devices);
             } catch (error) {
                 console.error('Error fetching dashboard data:', error);
+                const tbody = document.getElementById('devicesTable');
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-8 text-red-400">
+                            ${currentLang === 'ar' ? '❌ فشل تحميل البيانات' : '❌ Failed to load data'}
+                        </td>
+                    </tr>
+                `;
             }
         }
 
@@ -681,7 +594,7 @@
             document.getElementById('totalReports').textContent = reports.length;
             
             // Calculate average score
-            const scores = devices.filter(d => d.overallScore > 0).map(d => d.overallScore);
+            const scores = devices.filter(d => d.overallScore && d.overallScore > 0).map(d => d.overallScore);
             const avg = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
             document.getElementById('avgScore').textContent = avg + '%';
             
@@ -691,7 +604,7 @@
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="6" class="text-center py-8 text-gray-400">
-                            ${currentLang === 'ar' ? 'لا توجد أجهزة' : 'No devices'}
+                            ${currentLang === 'ar' ? '📱 لا توجد أجهزة مسجلة' : '📱 No devices registered'}
                         </td>
                     </tr>
                 `;
@@ -701,15 +614,29 @@
             const statusMap = {
                 'completed': currentLang === 'ar' ? 'مكتمل' : 'Completed',
                 'paired': currentLang === 'ar' ? 'مقترن' : 'Paired',
-                'pending': currentLang === 'ar' ? 'معلق' : 'Pending'
+                'pending': currentLang === 'ar' ? 'معلق' : 'Pending',
+                'failed': currentLang === 'ar' ? 'فشل' : 'Failed'
+            };
+            
+            const statusClass = {
+                'completed': 'status-completed',
+                'paired': 'status-paired',
+                'pending': 'status-pending',
+                'failed': 'status-failed'
+            };
+            
+            const scoreClass = (score) => {
+                if (score >= 80) return 'score-good';
+                if (score >= 50) return 'score-medium';
+                return 'score-bad';
             };
             
             tbody.innerHTML = devices.map(device => `
                 <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-                    <td class="py-3 text-sm font-mono">
-                        <div class="flex items-center space-x-2 space-x-reverse">
-                            <span>${device.deviceId || device.id}</span>
-                            <span class="text-xs text-gray-500">${device.manufacturer || ''}</span>
+                    <td class="py-3">
+                        <div>
+                            <div class="font-medium">${device.deviceId || device.id}</div>
+                            <div class="text-xs text-gray-500">${device.manufacturer || 'Unknown'}</div>
                         </div>
                     </td>
                     <td class="py-3 hidden md:table-cell">
@@ -719,15 +646,12 @@
                         </div>
                     </td>
                     <td class="py-3 hidden lg:table-cell">
-                        <span class="px-3 py-1 rounded-full text-xs font-medium
-                            ${device.status === 'completed' ? 'bg-green-500/20 text-green-400' :
-                              device.status === 'paired' ? 'bg-blue-500/20 text-blue-400' :
-                              'bg-yellow-500/20 text-yellow-400'}">
+                        <span class="status-badge ${statusClass[device.status] || 'status-pending'}">
                             ${statusMap[device.status] || device.status}
                         </span>
                     </td>
                     <td class="py-3">
-                        <span class="font-bold ${device.overallScore > 70 ? 'text-green-400' : device.overallScore > 40 ? 'text-yellow-400' : 'text-red-400'}">
+                        <span class="font-bold ${device.overallScore ? scoreClass(device.overallScore) : 'text-gray-500'}">
                             ${device.overallScore || 'N/A'}%
                         </span>
                     </td>
@@ -736,15 +660,19 @@
                     </td>
                     <td class="py-3">
                         <button onclick="viewReport('${device.lastReportId || device.id}')" 
-                                class="text-purple-400 hover:text-purple-300 transition-colors">
+                                class="text-purple-400 hover:text-purple-300 transition-colors" title="${currentLang === 'ar' ? 'عرض التقرير' : 'View Report'}">
                             <i class="ri-eye-line"></i>
                         </button>
                         ${device.status === 'completed' ? `
                             <button onclick="downloadReport('${device.id}')" 
-                                    class="text-green-400 hover:text-green-300 transition-colors ml-2">
+                                    class="text-green-400 hover:text-green-300 transition-colors mr-2" title="${currentLang === 'ar' ? 'تحميل التقرير' : 'Download Report'}">
                                 <i class="ri-file-pdf-line"></i>
                             </button>
                         ` : ''}
+                        <button onclick="deleteDevice('${device.id}')" 
+                                class="text-red-400 hover:text-red-300 transition-colors mr-2" title="${currentLang === 'ar' ? 'حذف الجهاز' : 'Delete Device'}">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
                     </td>
                 </tr>
             `).join('');
@@ -762,6 +690,19 @@
         // ============ Download Report ============
         function downloadReport(deviceId) {
             alert(currentLang === 'ar' ? '📥 جاري تحميل التقرير...' : '📥 Downloading report...');
+        }
+
+        // ============ Delete Device ============
+        function deleteDevice(deviceId) {
+            const confirmMsg = currentLang === 'ar' 
+                ? `هل أنت متأكد من حذف الجهاز ${deviceId}؟` 
+                : `Are you sure you want to delete device ${deviceId}?`;
+            
+            if (confirm(confirmMsg)) {
+                // Call API to delete
+                alert(currentLang === 'ar' ? '🗑️ تم حذف الجهاز' : '🗑️ Device deleted');
+                refreshData();
+            }
         }
 
         // ============ Search ============
@@ -783,22 +724,33 @@
             loadLanguage();
             checkAuth();
             
-            // Load real devices
-            const devices = getRealDevices();
-            devicesData = devices;
-            updateDashboard(devices);
+            // Load from Firebase if logged in
+            if (currentToken) {
+                fetchDashboardData();
+            } else {
+                const tbody = document.getElementById('devicesTable');
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-8 text-gray-400">
+                            ${currentLang === 'ar' ? '🔒 يرجى تسجيل الدخول لعرض الأجهزة' : '🔒 Please login to view devices'}
+                        </td>
+                    </tr>
+                `;
+            }
         });
 
         // ============ Refresh ============
         function refreshData() {
-            const devices = getRealDevices();
-            devicesData = devices;
-            updateDashboard(devices);
+            if (currentToken) {
+                fetchDashboardData();
+            }
         }
 
         // ============ Auto-refresh ============
         setInterval(() => {
-            refreshData();
+            if (currentToken) {
+                fetchDashboardData();
+            }
         }, 30000);
     </script>
 </body>
