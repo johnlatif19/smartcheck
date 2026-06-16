@@ -571,7 +571,15 @@ app.get('/api/report/:reportId',
 );
 
 // ==================== Serve React App ====================
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/login.html');
+});
+
 app.get('/login', (req, res) => {
+  res.sendFile(__dirname + '/public/login.html');
+});
+
+app.get('/login.html', (req, res) => {
   res.sendFile(__dirname + '/public/login.html');
 });
 
@@ -579,8 +587,21 @@ app.get('/signup', (req, res) => {
   res.sendFile(__dirname + '/public/signup.html');
 });
 
+app.get('/signup.html', (req, res) => {
+  res.sendFile(__dirname + '/public/signup.html');
+});
+
 app.get('/index', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
+});
+
+app.get('/index.html', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+// Fallback - أي مسار مش معروف يروح للـ login
+app.get('*', (req, res) => {
+  res.sendFile(__dirname + '/public/login.html');
 });
 
 app.listen(PORT, () => {
