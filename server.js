@@ -113,6 +113,83 @@ const isAdmin = (req, res, next) => {
 // ==================== Login Routes ====================
 
 // Admin Login
+
+// ==================== Signup Route ====================
+
+// User Signup
+app.post('/api/signup',
+  body('fullName').isString().notEmpty().trim(),
+  body('username').isString().notEmpty().trim().isLength({ min: 3 }),
+  body('email').isEmail().normalizeEmail(),
+  body('password').isString().isLength({ min: 8 }),
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+      const { fullName, username, email, password } = req.body;
+
+      // Check if username already exists
+      const usersSnapshot = await db.collection('users')
+        .where('username', '==', username)
+        .limit(1)
+        .get();
+
+      if (!usersSnapshot.empty) {
+        return res.status(400).json({
+          success: false,
+          error: 'Username already taken'
+        });
+      }
+
+      // Check if email already exists
+      const emailSnapshot = await db.collection('users')
+        .where('email', '==', email)
+        .limit(1)
+        .get();
+
+      if (!emailSnapshot.empty) {
+        return res.status(400).json({
+          success: false,
+          error: 'Email already registered'
+        });
+      }
+
+      // Hash password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      // Create user in Firestore
+      const userData = {
+        fullName,
+        username,
+        email,
+        password: hashedPassword,
+        role: 'user',
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        updatedAt: admin.firestore.FieldValue.serverTimestamp()
+      };
+
+      const userRef = await db.collection('users').add(userData);
+
+      res.json({
+        success: true,
+        userId: userRef.id,
+        message: 'User created successfully'
+      });
+    } catch (error) {
+      console.error('Signup error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Server error during signup'
+      });
+    }
+  }
+);
+
+// Admin Login (Modified to check Firestore users)
 app.post('/api/login',
   body('username').isString().notEmpty().trim(),
   body('password').isString().notEmpty().trim(),
@@ -125,7 +202,54 @@ app.post('/api/login',
 
       const { username, password } = req.body;
 
-      // Get credentials from environment
+      // Check if user exists in Firestore
+      const usersSnapshot = await db.collection('users')
+        .where('username', '==', username)
+        .limit(1)
+        .get();
+
+      let userData = null;
+      let userId = null;
+
+      if (!usersSnapshot.empty) {
+        const doc = usersSnapshot.docs[0];
+        userData = doc.data();
+        userId = doc.id;
+      }
+
+      // If user exists in Firestore, verify password
+      if (userData) {
+        const isValidPassword = await bcrypt.compare(password, userData.password);
+        if (isValidPassword) {
+          const token = jwt.sign(
+            { userId: userId, username: username, role: userData.role || 'user' },
+            process.env.JWT_SECRET,
+            { expiresIn: '24h' }
+          );
+
+          req.session.user = {
+            userId: userId,
+            username: username,
+            fullName: userData.fullName,
+            role: userData.role || 'user',
+            loggedIn: true
+          };
+
+          return res.json({
+            success: true,
+            token: token,
+            user: { 
+              userId: userId,
+              username: username,
+              fullName: userData.fullName,
+              role: userData.role || 'user'
+            },
+            message: 'Login successful'
+          });
+        }
+      }
+
+      // Fallback to admin credentials from .env
       const adminUsername = process.env.ADMIN_USERNAME || 'admin';
       const adminPassword = process.env.ADMIN_PASSWORD || 'SmartCheck2024';
 
@@ -148,12 +272,12 @@ app.post('/api/login',
           user: { username: username, role: 'admin' },
           message: 'Login successful'
         });
-      } else {
-        return res.status(401).json({
-          success: false,
-          error: 'Invalid username or password'
-        });
       }
+
+      return res.status(401).json({
+        success: false,
+        error: 'Invalid username or password'
+      });
     } catch (error) {
       console.error('Login error:', error);
       res.status(500).json({ success: false, error: 'Server error during login' });
