@@ -37,7 +37,7 @@ app.use(helmet({
 // CORS
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://smartcheck.vercel.app']
+    ? ['https://smartcheck-gamma.vercel.app']
     : ['http://localhost:3000', 'http://localhost:3001'],
   credentials: true
 }));
@@ -83,9 +83,8 @@ const sanitizeInput = (req, res, next) => {
 
 app.use(sanitizeInput);
 
-// ==================== API Routes ====================
+// ==================== Authentication Middleware ====================
 
-// Authentication Middleware
 const authenticateJWT = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
   
@@ -101,6 +100,89 @@ const authenticateJWT = (req, res, next) => {
     res.status(403).json({ error: 'Invalid or expired token.' });
   }
 };
+
+// Admin Middleware
+const isAdmin = (req, res, next) => {
+  if (req.user && req.user.role === 'admin') {
+    next();
+  } else {
+    res.status(403).json({ error: 'Admin access required' });
+  }
+};
+
+// ==================== Login Routes ====================
+
+// Admin Login
+app.post('/api/login',
+  body('username').isString().notEmpty().trim(),
+  body('password').isString().notEmpty().trim(),
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+      const { username, password } = req.body;
+
+      // Get credentials from environment
+      const adminUsername = process.env.ADMIN_USERNAME || 'admin';
+      const adminPassword = process.env.ADMIN_PASSWORD || 'SmartCheck2024';
+
+      if (username === adminUsername && password === adminPassword) {
+        const token = jwt.sign(
+          { username: username, role: 'admin' },
+          process.env.JWT_SECRET,
+          { expiresIn: '24h' }
+        );
+
+        req.session.user = {
+          username: username,
+          role: 'admin',
+          loggedIn: true
+        };
+
+        return res.json({
+          success: true,
+          token: token,
+          user: { username: username, role: 'admin' },
+          message: 'Login successful'
+        });
+      } else {
+        return res.status(401).json({
+          success: false,
+          error: 'Invalid username or password'
+        });
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      res.status(500).json({ success: false, error: 'Server error during login' });
+    }
+  }
+);
+
+// Logout
+app.post('/api/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ error: 'Logout failed' });
+    }
+    res.json({ success: true, message: 'Logged out successfully' });
+  });
+});
+
+// Check Session
+app.get('/api/check-session', (req, res) => {
+  if (req.session.user && req.session.user.loggedIn) {
+    return res.json({
+      loggedIn: true,
+      user: req.session.user
+    });
+  }
+  res.json({ loggedIn: false });
+});
+
+// ==================== API Routes ====================
 
 // Generate Pairing Code
 app.post('/api/generate-pairing', async (req, res) => {
@@ -237,7 +319,8 @@ app.get('/api/device/:deviceId',
     try {
       const { deviceId } = req.params;
 
-      if (req.user.deviceId !== deviceId) {
+      // Allow access if user owns device or is admin
+      if (req.user.deviceId !== deviceId && req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Access denied' });
       }
 
@@ -269,9 +352,10 @@ app.get('/api/device/:deviceId',
   }
 );
 
-// Get All Devices (Admin)
+// Get All Devices (Admin Only)
 app.get('/api/devices',
   authenticateJWT,
+  isAdmin,
   async (req, res) => {
     try {
       const devicesSnapshot = await db.collection('devices')
@@ -306,8 +390,16 @@ app.get('/api/reports',
         .orderBy('createdAt', 'desc')
         .limit(50);
 
+      // Filter by deviceId if provided
       if (deviceId) {
+        // Check if user has access to this device
+        if (req.user.deviceId !== deviceId && req.user.role !== 'admin') {
+          return res.status(403).json({ error: 'Access denied' });
+        }
         query = query.where('deviceId', '==', deviceId);
+      } else if (req.user.role !== 'admin') {
+        // If not admin, only show their own reports
+        query = query.where('deviceId', '==', req.user.deviceId);
       }
 
       const reportsSnapshot = await query.get();
@@ -365,4 +457,6 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`🚀 SmartCheck Server running on port ${PORT}`);
+  console.log(`📱 Admin Login: ${process.env.ADMIN_USERNAME || 'admin'}`);
+  console.log(`🔒 Admin Password: ${process.env.ADMIN_PASSWORD || 'SmartCheck2024'}`);
 });
