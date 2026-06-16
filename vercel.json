@@ -28,6 +28,10 @@
       "dest": "/public/login.html"
     },
     {
+      "src":"/privacy-policy",
+      "dest":"/public/privacy-policy.html"
+    },
+    {
       "src": "/signup",
       "dest": "/public/signup.html"
     },
