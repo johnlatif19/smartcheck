@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCheck - الشروط والأحكام</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0f;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
+            to { text-shadow: 0 0 40px rgba(102, 126, 234, 0.6), 0 0 60px rgba(118, 75, 162, 0.3); }
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #8b7cf7;
+            transform: translateX(-4px);
+        }
+        
+        .section-title {
+            color: #667eea;
+            font-weight: 700;
+            margin-top: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .lang-en {
+            direction: ltr;
+        }
+        .lang-en * {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+        .lang-ar {
+            direction: rtl;
+        }
+        .lang-ar * {
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="root" class="lang-ar">
+        <!-- Navbar -->
+        <nav class="fixed w-full z-50 glass-effect">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-3 space-x-reverse">
+                        <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center">
+                            <i class="ri-smartphone-line text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">SmartCheck</span>
+                    </div>
+                    
+                    <div class="flex items-center space-x-6 space-x-reverse">
+                        <button onclick="toggleLanguage()" class="text-gray-300 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                            <span id="langText" class="font-medium">AR</span>
+                        </button>
+                        
+                        <a href="/signup" class="px-4 py-2 gradient-bg rounded-lg text-white text-sm font-medium hover:shadow-lg transition-all">
+                            <i class="ri-user-add-line ml-1"></i>
+                            إنشاء حساب
+                        </a>
+                        
+                        <a href="/login" class="text-gray-300 hover:text-white transition-colors text-sm">
+                            تسجيل الدخول
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="max-w-4xl mx-auto px-4 pt-28 pb-16">
+            <div class="glass-effect rounded-2xl p-8 md:p-12">
+                <!-- Header -->
+                <div class="text-center mb-10">
+                    <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-file-text-line text-white text-2xl"></i>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold glow" data-ar="الشروط والأحكام" data-en="Terms & Conditions">
+                        الشروط والأحكام
+                    </h1>
+                    <p class="text-gray-400 mt-2 text-sm">
+                        آخر تحديث: <span id="updateDate">يناير 2026</span>
+                    </p>
+                </div>
+
+                <!-- Content -->
+                <div class="space-y-6 text-gray-300 leading-relaxed">
+                    
+                    <!-- 1. مقدمة -->
+                    <div>
+                        <h2 class="section-title text-xl" data-ar="١. مقدمة" data-en="1. Introduction">١. مقدمة</h2>
+                        <p data-ar="مرحباً بك في SmartCheck. باستخدامك لهذه المنصة، فإنك توافق على الالتزام بهذه الشروط والأحكام. يرجى قراءتها بعناية قبل استخدام المنصة." data-en="Welcome to SmartCheck. By using this platform, you agree to comply with these terms and conditions. Please read them carefully before using the platform.">
+                            مرحباً بك في SmartCheck. باستخدامك لهذه المنصة، فإنك توافق على الالتزام بهذه الشروط والأحكام. يرجى قراءتها بعناية قبل استخدام المنصة.
+                        </p>
+                    </div>
+
+                    <!-- 2. الحساب -->
+                    <div>
+                        <h2 class="section-title text-xl" data-ar="٢. الحساب والمستخدم" data-en="2. Account and User">٢. الحساب والمستخدم</h2>
+                        <ul class="list-disc list-inside space-y-2 pr-4">
+                            <li data-ar="يجب أن تكون معلومات الحساب صحيحة وكاملة." data-en="Account information must be accurate and complete.">
+                                يجب أن تكون معلومات الحساب صحيحة وكاملة.
+                            </li>
+                            <li data-ar="أنت المسؤول الوحيد عن الحفاظ على سرية كلمة المرور." data-en="You are solely responsible for maintaining the confidentiality of your password.">
+                                أنت المسؤول الوحيد عن الحفاظ على سرية كلمة المرور.
+                            </li>
+                            <li data-ar="يحق لنا تعليق أو إنهاء حسابك في حال مخالفة هذه الشروط." data-en="We reserve the right to suspend or terminate your account if you violate these terms.">
+                                يحق لنا تعليق أو إنهاء حسابك في حال مخالفة هذه الشروط.
+                            </li>
+                            <li data-ar="عمر المستخدم يجب أن لا يقل عن ١٣ عاماً." data-en="Users must be at least 13 years old.">
+                                عمر المستخدم يجب أن لا يقل عن ١٣ عاماً.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 3. الخدمات -->
+                    <div>
+                        <h2 class="section-title text-xl" data-ar="٣. الخدمات المقدمة" data-en="3. Services Provided">٣. الخدمات المقدمة</h2>
+                        <ul class="list-disc list-inside space-y-2 pr-4">
+                            <li data-ar="نقدم منصة لفحص الأجهزة وتقديم تقارير مفصلة عن حالتها." data-en="We provide a platform for device testing and detailed reports.">
+                                نقدم منصة لفحص الأجهزة وتقديم تقارير مفصلة عن حالتها.
+                            </li>
+                            <li data-ar="جميع الاختبارات والنتائج هي لأغراض إعلامية فقط." data-en="All tests and results are for informational purposes only.">
+                                جميع الاختبارات والنتائج هي لأغراض إعلامية فقط.
+                            </li>
+                            <li data-ar="لا نتحمل مسؤولية أي أضرار ناتجة عن استخدام المنصة." data-en="We are not responsible for any damages resulting from the use of the platform.">
+                                لا نتحمل مسؤولية أي أضرار ناتجة عن استخدام المنصة.
+                            </li>
+                            <li data-ar="نحتفظ بالحق في تعديل أو وقف الخدمات في أي وقت." data-en="We reserve the right to modify or discontinue services at any time.">
+                                نحتفظ بالحق في تعديل أو وقف الخدمات في أي وقت.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 4. البيانات -->
+                    <div>
+                        <h2 class="section-title text-xl" data-ar="٤. البيانات والخصوصية" data-en="4. Data and Privacy">٤. البيانات والخصوصية</h2>
+                        <ul class="list-disc list-inside space-y-2 pr-4">
+                            <li data-ar="نحن نلتزم بحماية خصوصية بياناتك." data-en="We are committed to protecting your data privacy.">
+                                نحن نلتزم بحماية خصوصية بياناتك.
+                            </li>
+                            <li data-ar="البيانات التي تجمع تشمل معلومات الجهاز ونتائج الاختبارات." data-en="Collected data includes device information and test results.">
+                                البيانات التي تجمع تشمل معلومات الجهاز ونتائج الاختبارات.
+                            </li>
+                            <li data-ar="لن نشارك بياناتك مع أطراف ثالثة دون موافقتك." data-en="We will not share your data with third parties without your consent.">
+                                لن نشارك بياناتك مع أطراف ثالثة دون موافقتك.
+                            </li>
+                            <li data-ar="يمكنك طلب حذف بياناتك في أي وقت." data-en="You can request to delete your data at any time.">
+                                يمكنك طلب حذف بياناتك في أي وقت.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 5. الملكية -->
+                    <div>
+                        <h2 class="section-title text-xl" data-ar="٥. حقوق الملكية" data-en="5. Intellectual Property">٥. حقوق الملكية</h2>
+                        <ul class="list-disc list-inside space-y-2 pr-4">
+                            <li data-ar="جميع المحتويات على المنصة محمية بحقوق الملكية الفكرية." data-en="All content on the platform is protected by intellectual property rights.">
+                                جميع المحتويات على المنصة محمية بحقوق الملكية الفكرية.
+                            </li>
+                            <li data-ar="لا يجوز نسخ أو توزيع أو تعديل أي محتوى دون إذن مسبق." data-en="You may not copy, distribute, or modify any content without prior permission.">
+                                لا يجوز نسخ أو توزيع أو تعديل أي محتوى دون إذن مسبق.
+                            </li>
+                            <li data-ar="العلامات التجارية والشعارات هي ملك لشركة SmartCheck." data-en="Trademarks and logos are the property of SmartCheck.">
+                                العلامات التجارية والشعارات هي ملك لشركة SmartCheck.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 6. التعديلات -->
+                    <div>
+                        <h2 class="section-title text-xl" data-ar="٦. تعديلات الشروط" data-en="6. Changes to Terms">٦. تعديلات الشروط</h2>
+                        <ul class="list-disc list-inside space-y-2 pr-4">
+                            <li data-ar="نحتفظ بالحق في تعديل هذه الشروط في أي وقت." data-en="We reserve the right to modify these terms at any time.">
+                                نحتفظ بالحق في تعديل هذه الشروط في أي وقت.
+                            </li>
+                            <li data-ar="سيتم إخطارك بالتغييرات عبر البريد الإلكتروني أو إشعار على المنصة." data-en="You will be notified of changes via email or platform notification.">
+                                سيتم إخطارك بالتغييرات عبر البريد الإلكتروني أو إشعار على المنصة.
+                            </li>
+                            <li data-ar="استمرارك في استخدام المنصة يعني موافقتك على التعديلات." data-en="Continued use of the platform constitutes your acceptance of the changes.">
+                                استمرارك في استخدام المنصة يعني موافقتك على التعديلات.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 7. الاتصال -->
+                    <div>
+                        <h2 class="section-title text-xl" data-ar="٧. الاتصال بنا" data-en="7. Contact Us">٧. الاتصال بنا</h2>
+                        <ul class="list-disc list-inside space-y-2 pr-4">
+                            <li data-ar="للاستفسارات أو الدعم الفني، يمكنك الاتصال بنا عبر:" data-en="For inquiries or technical support, you can contact us via:">
+                                للاستفسارات أو الدعم الفني، يمكنك الاتصال بنا عبر:
+                            </li>
+                            <li class="text-white font-medium">
+                                📧 <a href="mailto:support@smartcheck.com" class="text-[#667eea] hover:underline">support@smartcheck.com</a>
+                            </li>
+                            <li class="text-white font-medium">
+                                📞 <span class="text-[#667eea]">01274445091</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 8. الموافقة -->
+                    <div class="mt-8 p-4 gradient-bg rounded-xl text-center">
+                        <p class="text-white font-bold text-lg" data-ar="باستخدامك للمنصة، فإنك توافق على جميع الشروط والأحكام المذكورة أعلاه." data-en="By using the platform, you agree to all the above terms and conditions.">
+                            ✅ باستخدامك للمنصة، فإنك توافق على جميع الشروط والأحكام المذكورة أعلاه.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="mt-10 pt-6 border-t border-white/10 text-center">
+                    <a href="/signup" class="back-link">
+                        <i class="ri-arrow-right-line"></i>
+                        <span data-ar="العودة إلى إنشاء الحساب" data-en="Back to Sign Up">العودة إلى إنشاء الحساب</span>
+                    </a>
+                    <p class="text-gray-500 text-xs mt-4">© 2026 SmartCheck. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = localStorage.getItem('smartcheck_lang') || 'ar';
+
+        // ============ Language Functions ============
+        function toggleLanguage() {
+            const root = document.getElementById('root');
+            const langText = document.getElementById('langText');
+            
+            if (currentLang === 'ar') {
+                currentLang = 'en';
+                root.className = 'lang-en';
+                langText.textContent = 'AR';
+                document.documentElement.dir = 'ltr';
+                document.documentElement.lang = 'en';
+            } else {
+                currentLang = 'ar';
+                root.className = 'lang-ar';
+                langText.textContent = 'EN';
+                document.documentElement.dir = 'rtl';
+                document.documentElement.lang = 'ar';
+            }
+            
+            localStorage.setItem('smartcheck_lang', currentLang);
+            
+            document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+                if (currentLang === 'ar') {
+                    el.textContent = el.getAttribute('data-ar');
+                } else {
+                    el.textContent = el.getAttribute('data-en');
+                }
+            });
+        }
+
+        function loadLanguage() {
+            const root = document.getElementById('root');
+            const langText = document.getElementById('langText');
+            
+            if (currentLang === 'en') {
+                root.className = 'lang-en';
+                langText.textContent = 'AR';
+                document.documentElement.dir = 'ltr';
+                document.documentElement.lang = 'en';
+            } else {
+                root.className = 'lang-ar';
+                langText.textContent = 'EN';
+                document.documentElement.dir = 'rtl';
+                document.documentElement.lang = 'ar';
+            }
+            
+            document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+                if (currentLang === 'ar') {
+                    el.textContent = el.getAttribute('data-ar');
+                } else {
+                    el.textContent = el.getAttribute('data-en');
+                }
+            });
+        }
+
+        // ============ Set Update Date ============
+        document.addEventListener('DOMContentLoaded', function() {
+            loadLanguage();
+            
+            const date = new Date();
+            const months = {
+                'ar': ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+                'en': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+            };
+            const month = months[currentLang]?.[date.getMonth()] || months['ar'][date.getMonth()];
+            document.getElementById('updateDate').textContent = `${month} ${date.getFullYear()}`;
+        });
+    </script>
+</body>
+</html>
