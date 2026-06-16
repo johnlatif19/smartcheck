@@ -313,14 +313,12 @@
             if (currentLang === 'ar') {
                 currentLang = 'en';
                 root.className = 'lang-en';
-                langLabel.textContent = '🇸🇦';
                 langText.textContent = 'AR';
                 document.documentElement.dir = 'ltr';
                 document.documentElement.lang = 'en';
             } else {
                 currentLang = 'ar';
                 root.className = 'lang-ar';
-                langLabel.textContent = '🇺🇸';
                 langText.textContent = 'EN';
                 document.documentElement.dir = 'rtl';
                 document.documentElement.lang = 'ar';
@@ -344,13 +342,11 @@
             
             if (currentLang === 'en') {
                 root.className = 'lang-en';
-                langLabel.textContent = '🇸🇦';
                 langText.textContent = 'AR';
                 document.documentElement.dir = 'ltr';
                 document.documentElement.lang = 'en';
             } else {
                 root.className = 'lang-ar';
-                langLabel.textContent = '🇺🇸';
                 langText.textContent = 'EN';
                 document.documentElement.dir = 'rtl';
                 document.documentElement.lang = 'ar';
@@ -410,11 +406,11 @@
         
         // ============ Navigation ============
         function goToLogin() {
-            window.location.href = '/login.html';
+            window.location.href = '/login';
         }
         
         function goToDashboard() {
-            window.location.href = '/index.html';
+            window.location.href = '/';
         }
         
         // ============ Signup Handler ============
@@ -515,7 +511,7 @@
         function checkAuth() {
             const token = localStorage.getItem('smartcheck_token');
             if (token) {
-                window.location.href = '/index.html';
+                window.location.href = '/';
             }
         }
         
