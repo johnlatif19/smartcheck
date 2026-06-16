@@ -136,7 +136,7 @@ app.post('/api/signup',
       if (!usersSnapshot.empty) {
         return res.status(400).json({
           success: false,
-          error: 'Username already taken'
+          error: 'اسم المستخدم موجود بالفعل'
         });
       }
 
@@ -149,7 +149,7 @@ app.post('/api/signup',
       if (!emailSnapshot.empty) {
         return res.status(400).json({
           success: false,
-          error: 'Email already registered'
+          error: 'البريد الإلكتروني مسجل بالفعل'
         });
       }
 
@@ -173,7 +173,7 @@ app.post('/api/signup',
       res.json({
         success: true,
         userId: userRef.id,
-        message: 'User created successfully'
+        message: 'تم إنشاء حساب المستخدم بنجاح'
       });
     } catch (error) {
       console.error('Signup error:', error);
@@ -240,7 +240,7 @@ app.post('/api/login',
               fullName: userData.fullName,
               role: userData.role || 'user'
             },
-            message: 'Login successful'
+            message: 'تم تسجيل الدخول بنجاح'
           });
         }
       }
