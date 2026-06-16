@@ -127,6 +127,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 500;
+            text-decoration: none;
         }
         
         .link-text:hover {
@@ -225,42 +226,6 @@
             align-items: center;
             gap: 4px;
         }
-        
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin: 20px 0;
-        }
-        
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(255,255,255,0.06);
-        }
-        
-        .social-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 12px;
-            padding: 12px;
-            width: 100%;
-            color: white;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .social-btn:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-2px);
-        }
     </style>
 </head>
 <body>
@@ -276,15 +241,14 @@
                     <i class="ri-smartphone-line text-white text-3xl"></i>
                 </div>
                 <h1 class="text-4xl font-extrabold glow">SmartCheck</h1>
-                <p class="text-gray-400 mt-2 text-sm" data-ar="منصة فحص الأجهزة الاحترافية" data-en="Professional Device Testing Platform">
-                    منصة فحص الأجهزة الاحترافية
+                <p class="text-gray-400 mt-2 text-sm" data-ar="منصة فحص الأجهزة" data-en="Professional Device Testing Platform">
+                    منصة فحص الأجهزة
                 </p>
             </div>
             
             <!-- Language Toggle -->
             <div class="flex justify-end mb-4">
                 <button onclick="toggleLanguage()" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
-                    <span id="langLabel">🇸🇦</span>
                     <span id="langText" class="font-medium">AR</span>
                 </button>
             </div>
@@ -300,6 +264,8 @@
                     <div class="mb-4">
                         <label class="block text-gray-300 mb-2 text-sm font-medium" data-ar="الاسم الكامل" data-en="Full Name">الاسم الكامل</label>
                         <input type="text" id="fullName" required 
+                               data-ar-placeholder="أدخل اسمك الكامل"
+                               data-en-placeholder="Enter your full name"
                                placeholder="أدخل اسمك الكامل"
                                class="input-field">
                     </div>
@@ -307,6 +273,8 @@
                     <div class="mb-4">
                         <label class="block text-gray-300 mb-2 text-sm font-medium" data-ar="اسم المستخدم" data-en="Username">اسم المستخدم</label>
                         <input type="text" id="signupUsername" required 
+                               data-ar-placeholder="أدخل اسم المستخدم"
+                               data-en-placeholder="Enter username"
                                placeholder="أدخل اسم المستخدم"
                                class="input-field">
                     </div>
@@ -314,6 +282,8 @@
                     <div class="mb-4">
                         <label class="block text-gray-300 mb-2 text-sm font-medium" data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني</label>
                         <input type="email" id="signupEmail" required 
+                               data-ar-placeholder="أدخل البريد الإلكتروني"
+                               data-en-placeholder="Enter email address"
                                placeholder="أدخل البريد الإلكتروني"
                                class="input-field">
                     </div>
@@ -321,6 +291,8 @@
                     <div class="mb-2">
                         <label class="block text-gray-300 mb-2 text-sm font-medium" data-ar="كلمة المرور" data-en="Password">كلمة المرور</label>
                         <input type="password" id="signupPassword" required 
+                               data-ar-placeholder="أدخل كلمة المرور (8 أحرف على الأقل)"
+                               data-en-placeholder="Enter password (min 8 characters)"
                                placeholder="أدخل كلمة المرور (8 أحرف على الأقل)"
                                class="input-field"
                                oninput="checkPasswordStrength(this.value)">
@@ -333,6 +305,8 @@
                     <div class="mb-6">
                         <label class="block text-gray-300 mb-2 text-sm font-medium" data-ar="تأكيد كلمة المرور" data-en="Confirm Password">تأكيد كلمة المرور</label>
                         <input type="password" id="confirmPassword" required 
+                               data-ar-placeholder="أعد إدخال كلمة المرور"
+                               data-en-placeholder="Re-enter password"
                                placeholder="أعد إدخال كلمة المرور"
                                class="input-field">
                     </div>
@@ -342,31 +316,18 @@
                             <input type="checkbox" id="agreeTerms" required class="w-4 h-4 rounded border-gray-600 bg-transparent accent-purple-500">
                             <label for="agreeTerms" class="text-sm text-gray-400 cursor-pointer">
                                 <span data-ar="أوافق على" data-en="I agree to the">أوافق على</span>
-                                <span class="link-text" data-ar="الشروط والأحكام" data-en="Terms & Conditions">الشروط والأحكام</span>
+                                <a href="/privacy-policy" target="_blank" class="link-text" data-ar="الشروط والأحكام" data-en="Terms & Conditions">
+                                    الشروط والأحكام
+                                </a>
                             </label>
                         </div>
                     </div>
                     
                     <button type="submit" class="btn-primary" data-ar="إنشاء حساب" data-en="Create Account">
                         <i class="ri-user-add-line ml-2"></i>
-                        إنشاء حساب
+                        <span data-ar="إنشاء حساب" data-en="Create Account">إنشاء حساب</span>
                     </button>
                 </form>
-                
-                <div class="divider">
-                    <span class="text-xs text-gray-500">أو</span>
-                </div>
-                
-                <div class="flex gap-3">
-                    <button class="social-btn flex-1">
-                        <i class="ri-google-fill text-red-400"></i>
-                        Google
-                    </button>
-                    <button class="social-btn flex-1">
-                        <i class="ri-apple-fill text-white"></i>
-                        Apple
-                    </button>
-                </div>
                 
                 <div class="mt-6 text-center">
                     <p class="text-gray-400 text-sm">
@@ -391,7 +352,6 @@
         // ============ Language Functions ============
         function toggleLanguage() {
             const root = document.getElementById('root');
-            const langLabel = document.getElementById('langLabel');
             const langText = document.getElementById('langText');
             
             if (currentLang === 'ar') {
@@ -409,19 +369,11 @@
             }
             
             localStorage.setItem('smartcheck_lang', currentLang);
-            
-            document.querySelectorAll('[data-ar][data-en]').forEach(el => {
-                if (currentLang === 'ar') {
-                    el.textContent = el.getAttribute('data-ar');
-                } else {
-                    el.textContent = el.getAttribute('data-en');
-                }
-            });
+            updateLanguage();
         }
         
         function loadLanguage() {
             const root = document.getElementById('root');
-            const langLabel = document.getElementById('langLabel');
             const langText = document.getElementById('langText');
             
             if (currentLang === 'en') {
@@ -436,6 +388,11 @@
                 document.documentElement.lang = 'ar';
             }
             
+            updateLanguage();
+        }
+        
+        function updateLanguage() {
+            // Update text content for elements with data-ar and data-en
             document.querySelectorAll('[data-ar][data-en]').forEach(el => {
                 if (currentLang === 'ar') {
                     el.textContent = el.getAttribute('data-ar');
@@ -443,6 +400,21 @@
                     el.textContent = el.getAttribute('data-en');
                 }
             });
+            
+            // Update placeholder for inputs with data-ar-placeholder and data-en-placeholder
+            document.querySelectorAll('[data-ar-placeholder][data-en-placeholder]').forEach(el => {
+                if (currentLang === 'ar') {
+                    el.placeholder = el.getAttribute('data-ar-placeholder');
+                } else {
+                    el.placeholder = el.getAttribute('data-en-placeholder');
+                }
+            });
+            
+            // Update password strength message
+            const password = document.getElementById('signupPassword').value;
+            if (password) {
+                checkPasswordStrength(password);
+            }
         }
         
         // ============ Toast Notification ============
@@ -463,7 +435,6 @@
             const requirements = document.getElementById('passwordRequirements');
             
             let strength = 0;
-            let messages = [];
             
             if (password.length >= 8) strength++;
             if (password.match(/[a-z]/)) strength++;
@@ -473,21 +444,26 @@
             
             strengthBar.className = 'password-strength';
             
+            const weakMsg = currentLang === 'ar' ? '🔴 كلمة مرور ضعيفة' : '🔴 Weak password';
+            const mediumMsg = currentLang === 'ar' ? '🟡 كلمة مرور متوسطة' : '🟡 Medium password';
+            const strongMsg = currentLang === 'ar' ? '🟢 كلمة مرور قوية' : '🟢 Strong password';
+            const defaultMsg = currentLang === 'ar' ? '🔒 8 أحرف على الأقل' : '🔒 At least 8 characters';
+            
             if (password.length === 0) {
                 strengthBar.style.width = '0%';
-                requirements.innerHTML = `<span class="requirement-item">${currentLang === 'ar' ? '🔒 8 أحرف على الأقل' : '🔒 At least 8 characters'}</span>`;
+                requirements.innerHTML = `<span class="requirement-item">${defaultMsg}</span>`;
                 return;
             }
             
             if (strength <= 2) {
                 strengthBar.classList.add('weak');
-                requirements.innerHTML = `<span class="requirement-item invalid">${currentLang === 'ar' ? '🔴 كلمة مرور ضعيفة' : '🔴 Weak password'}</span>`;
+                requirements.innerHTML = `<span class="requirement-item invalid">${weakMsg}</span>`;
             } else if (strength <= 3) {
                 strengthBar.classList.add('medium');
-                requirements.innerHTML = `<span class="requirement-item valid">${currentLang === 'ar' ? '🟡 كلمة مرور متوسطة' : '🟡 Medium password'}</span>`;
+                requirements.innerHTML = `<span class="requirement-item valid">${mediumMsg}</span>`;
             } else {
                 strengthBar.classList.add('strong');
-                requirements.innerHTML = `<span class="requirement-item valid">${currentLang === 'ar' ? '🟢 كلمة مرور قوية' : '🟢 Strong password'}</span>`;
+                requirements.innerHTML = `<span class="requirement-item valid">${strongMsg}</span>`;
             }
         }
         
@@ -555,10 +531,10 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    showToast(
-                        currentLang === 'ar' ? `✅ تم إنشاء الحساب بنجاح! مرحباً ${fullName}` : `✅ Account created successfully! Welcome ${fullName}`,
-                        'success'
-                    );
+                    const successMsg = currentLang === 'ar' 
+                        ? `✅ تم إنشاء الحساب بنجاح! مرحباً ${fullName}` 
+                        : `✅ Account created successfully! Welcome ${fullName}`;
+                    showToast(successMsg, 'success');
                     
                     setTimeout(async () => {
                         const loginResponse = await fetch('/api/login', {
@@ -578,10 +554,10 @@
                         }
                     }, 1500);
                 } else {
-                    showToast(
-                        currentLang === 'ar' ? `❌ ${data.error || 'فشل إنشاء الحساب'}` : `❌ ${data.error || 'Signup failed'}`,
-                        'error'
-                    );
+                    const errorMsg = currentLang === 'ar' 
+                        ? `❌ ${data.error || 'فشل إنشاء الحساب'}` 
+                        : `❌ ${data.error || 'Signup failed'}`;
+                    showToast(errorMsg, 'error');
                 }
             } catch (error) {
                 console.error('Signup error:', error);
