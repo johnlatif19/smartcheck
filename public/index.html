@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartCheck - منصة فحص الأجهزة الاحترافية</title>
+    <title>SmartCheck - لوحة التحكم</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
@@ -74,7 +74,6 @@
             font-family: 'Tajawal', 'Segoe UI', sans-serif;
         }
         
-        /* Loading Spinner */
         .spinner {
             border: 3px solid rgba(255,255,255,0.1);
             border-top: 3px solid #667eea;
@@ -104,6 +103,25 @@
         .score-good { color: #22c55e; }
         .score-medium { color: #eab308; }
         .score-bad { color: #ef4444; }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .logout-btn {
+            transition: all 0.3s ease;
+        }
+        .logout-btn:hover {
+            color: #ef4444;
+        }
     </style>
 </head>
 <body>
@@ -120,49 +138,50 @@
                     </div>
                     
                     <div class="flex items-center space-x-6 space-x-reverse">
-                        <a href="#features" class="text-gray-300 hover:text-white transition-colors hidden md:block" data-ar="المميزات" data-en="Features">المميزات</a>
                         <a href="#dashboard" class="text-gray-300 hover:text-white transition-colors hidden md:block" data-ar="لوحة التحكم" data-en="Dashboard">لوحة التحكم</a>
+                        <a href="#features" class="text-gray-300 hover:text-white transition-colors hidden md:block" data-ar="المميزات" data-en="Features">المميزات</a>
+                        
                         <button onclick="toggleLanguage()" class="text-gray-300 hover:text-white transition-colors flex items-center space-x-2 space-x-reverse">
                             <span id="langLabel">🇸🇦</span>
                             <span id="langText" class="text-sm">AR</span>
                         </button>
-                        <button onclick="openLogin()" class="px-6 py-2 gradient-bg rounded-lg text-white font-medium hover:opacity-90 transition-opacity" data-ar="تسجيل الدخول" data-en="Login">
-                            تسجيل الدخول
-                        </button>
+                        
+                        <div class="flex items-center space-x-3 space-x-reverse">
+                            <div class="user-avatar" id="userAvatar">A</div>
+                            <div class="hidden md:block">
+                                <div class="text-sm font-medium" id="userName">أحمد</div>
+                                <div class="text-xs text-gray-400" data-ar="مدير النظام" data-en="Administrator">مدير النظام</div>
+                            </div>
+                            <button onclick="handleLogout()" class="logout-btn text-gray-400 hover:text-red-400 transition-colors" title="تسجيل الخروج">
+                                <i class="ri-logout-box-r-line text-xl"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </nav>
 
         <!-- Hero Section -->
-        <section class="pt-32 pb-20 px-4">
+        <section class="pt-32 pb-12 px-4">
             <div class="max-w-7xl mx-auto text-center">
                 <div class="inline-block px-4 py-1.5 gradient-bg rounded-full text-sm font-medium mb-6 animate-gradient" data-ar="🚀 منصة فحص الأجهزة الاحترافية" data-en="🚀 Professional Device Testing Platform">
                     🚀 منصة فحص الأجهزة الاحترافية
                 </div>
-                <h1 class="text-5xl md:text-7xl font-bold mb-6 glow">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 glow">
                     SmartCheck
                 </h1>
-                <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-10" data-ar="فحص شامل للهواتف، تقارير دقيقة، وتقييم فوري قبل البيع أو الشراء" data-en="Complete device diagnostics, real-time testing, and comprehensive reports for buying and selling smartphones.">
-                    فحص شامل للهواتف، تقارير دقيقة، وتقييم فوري قبل البيع أو الشراء
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto" data-ar="مرحباً بك في لوحة التحكم" data-en="Welcome to your dashboard">
+                    <span data-ar="مرحباً" data-en="Welcome">مرحباً</span>
+                    <span class="text-white font-bold" id="welcomeName">أحمد</span>
+                    <span data-ar="👋" data-en="👋">👋</span>
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button onclick="openDashboard()" class="px-8 py-3 gradient-bg rounded-xl text-white font-semibold hover:opacity-90 transition-opacity flex items-center justify-center space-x-2 space-x-reverse">
-                        <i class="ri-dashboard-line"></i>
-                        <span data-ar="لوحة التحكم" data-en="Dashboard">لوحة التحكم</span>
-                    </button>
-                    <button onclick="openPairing()" class="px-8 py-3 glass-effect rounded-xl text-white font-semibold hover:bg-white/10 transition-all flex items-center justify-center space-x-2 space-x-reverse">
-                        <i class="ri-qr-code-line"></i>
-                        <span data-ar="إقران جهاز" data-en="Pair Device">إقران جهاز</span>
-                    </button>
-                </div>
             </div>
         </section>
 
         <!-- Features -->
-        <section id="features" class="py-20 px-4">
+        <section id="features" class="py-12 px-4">
             <div class="max-w-7xl mx-auto">
-                <h2 class="text-4xl font-bold text-center mb-16" data-ar="✨ مميزات SmartCheck" data-en="✨ Why SmartCheck?">✨ مميزات SmartCheck</h2>
+                <h2 class="text-3xl font-bold text-center mb-12" data-ar="✨ مميزات SmartCheck" data-en="✨ Why SmartCheck?">✨ مميزات SmartCheck</h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="card-hover glass-effect rounded-2xl p-8 text-center">
                         <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -196,9 +215,9 @@
         </section>
 
         <!-- Dashboard Section -->
-        <section id="dashboard" class="py-20 px-4 bg-white/5">
+        <section id="dashboard" class="py-16 px-4 bg-white/5">
             <div class="max-w-7xl mx-auto">
-                <h2 class="text-4xl font-bold text-center mb-16" data-ar="📊 لوحة التحكم" data-en="📊 Live Dashboard">📊 لوحة التحكم</h2>
+                <h2 class="text-3xl font-bold text-center mb-12" data-ar="📊 لوحة التحكم" data-en="📊 Dashboard">📊 لوحة التحكم</h2>
                 
                 <!-- Stats -->
                 <div class="grid md:grid-cols-4 gap-6 mb-10">
@@ -227,7 +246,7 @@
                     <div class="glass-effect rounded-2xl p-6 card-hover">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-gray-400 text-sm" data-ar="التقارير" data-en="Reports Generated">التقارير</p>
+                                <p class="text-gray-400 text-sm" data-ar="التقارير" data-en="Reports">التقارير</p>
                                 <p class="text-2xl font-bold" id="totalReports">0</p>
                             </div>
                             <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center">
@@ -258,6 +277,9 @@
                             <button onclick="refreshData()" class="px-4 py-2 gradient-bg rounded-lg text-white">
                                 <i class="ri-refresh-line"></i>
                             </button>
+                            <button onclick="openPairing()" class="px-4 py-2 gradient-bg rounded-lg text-white">
+                                <i class="ri-qr-code-line"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="overflow-x-auto">
@@ -285,33 +307,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Login Modal -->
-        <div id="loginModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-            <div class="glass-effect rounded-2xl p-8 max-w-md w-full mx-4">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</h2>
-                    <button onclick="closeLogin()" class="text-gray-400 hover:text-white">
-                        <i class="ri-close-line text-2xl"></i>
-                    </button>
-                </div>
-                <form id="loginForm" onsubmit="handleLogin(event)">
-                    <div class="mb-4">
-                        <label class="block text-gray-300 mb-2" data-ar="اسم المستخدم" data-en="Username">اسم المستخدم</label>
-                        <input type="text" id="loginUsername" required 
-                               class="w-full bg-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 border border-white/10 focus:outline-none focus:border-purple-500">
-                    </div>
-                    <div class="mb-6">
-                        <label class="block text-gray-300 mb-2" data-ar="كلمة المرور" data-en="Password">كلمة المرور</label>
-                        <input type="password" id="loginPassword" required 
-                               class="w-full bg-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 border border-white/10 focus:outline-none focus:border-purple-500">
-                    </div>
-                    <button type="submit" class="w-full gradient-bg rounded-lg py-3 text-white font-semibold hover:opacity-90 transition-opacity" data-ar="دخول" data-en="Login">
-                        دخول
-                    </button>
-                </form>
-            </div>
-        </div>
 
         <!-- Pairing Modal -->
         <div id="pairingModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
@@ -345,9 +340,22 @@
     <script>
         let currentToken = localStorage.getItem('smartcheck_token');
         let devicesData = [];
-        let currentLang = 'ar';
+        let currentLang = localStorage.getItem('smartcheck_lang') || 'ar';
+        let currentUser = JSON.parse(localStorage.getItem('smartcheck_user') || '{}');
+        let username = localStorage.getItem('smartcheck_username') || currentUser.username || 'مستخدم';
 
-        // ============ Language Toggle ============
+        // ============ Initialize User ============
+        function initUser() {
+            const userNameEl = document.getElementById('userName');
+            const welcomeNameEl = document.getElementById('welcomeName');
+            const avatarEl = document.getElementById('userAvatar');
+            
+            if (userNameEl) userNameEl.textContent = username;
+            if (welcomeNameEl) welcomeNameEl.textContent = username;
+            if (avatarEl) avatarEl.textContent = username.charAt(0).toUpperCase();
+        }
+
+        // ============ Language Functions ============
         function toggleLanguage() {
             const root = document.getElementById('root');
             const langLabel = document.getElementById('langLabel');
@@ -369,6 +377,8 @@
                 document.documentElement.lang = 'ar';
             }
             
+            localStorage.setItem('smartcheck_lang', currentLang);
+            
             document.querySelectorAll('[data-ar][data-en]').forEach(el => {
                 if (currentLang === 'ar') {
                     el.textContent = el.getAttribute('data-ar');
@@ -376,19 +386,14 @@
                     el.textContent = el.getAttribute('data-en');
                 }
             });
-            
-            localStorage.setItem('smartcheck_lang', currentLang);
         }
 
-        // ============ Load saved language ============
         function loadLanguage() {
-            const savedLang = localStorage.getItem('smartcheck_lang') || 'ar';
-            currentLang = savedLang;
             const root = document.getElementById('root');
             const langLabel = document.getElementById('langLabel');
             const langText = document.getElementById('langText');
             
-            if (savedLang === 'en') {
+            if (currentLang === 'en') {
                 root.className = 'lang-en';
                 langLabel.textContent = '🇸🇦';
                 langText.textContent = 'AR';
@@ -411,62 +416,18 @@
             });
         }
 
-        // ============ Authentication ============
-        function checkAuth() {
-            const loginBtn = document.querySelector('nav button:last-child');
-            if (!currentToken) {
-                loginBtn.textContent = currentLang === 'ar' ? 'تسجيل الدخول' : 'Login';
-            } else {
-                loginBtn.textContent = currentLang === 'ar' ? 'لوحة التحكم' : 'Dashboard';
+        // ============ Logout ============
+        function handleLogout() {
+            if (confirm(currentLang === 'ar' ? 'هل أنت متأكد من تسجيل الخروج؟' : 'Are you sure you want to logout?')) {
+                localStorage.removeItem('smartcheck_token');
+                localStorage.removeItem('smartcheck_user');
+                localStorage.removeItem('smartcheck_username');
+                currentToken = null;
+                window.location.href = '/login.html';
             }
         }
 
-        // ============ Login Handler ============
-        async function handleLogin(e) {
-            e.preventDefault();
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            try {
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
-                
-                const data = await response.json();
-                
-                if (data.success) {
-                    localStorage.setItem('smartcheck_token', data.token);
-                    localStorage.setItem('smartcheck_user', JSON.stringify(data.user));
-                    currentToken = data.token;
-                    closeLogin();
-                    openDashboard();
-                    alert(currentLang === 'ar' ? '✅ تم تسجيل الدخول بنجاح!' : '✅ Login successful!');
-                } else {
-                    alert(currentLang === 'ar' ? '❌ ' + (data.error || 'فشل تسجيل الدخول') : '❌ ' + (data.error || 'Login failed'));
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                alert(currentLang === 'ar' ? '❌ خطأ في الاتصال بالسيرفر' : '❌ Server connection error');
-            }
-        }
-
-        // ============ Navigation Functions ============
-        function openLogin() {
-            if (currentToken) {
-                openDashboard();
-            } else {
-                document.getElementById('loginModal').classList.remove('hidden');
-            }
-        }
-
-        function closeLogin() {
-            document.getElementById('loginModal').classList.add('hidden');
-        }
-
+        // ============ Navigation ============
         function openPairing() {
             generatePairing();
             document.getElementById('pairingModal').classList.remove('hidden');
@@ -476,15 +437,6 @@
             document.getElementById('pairingModal').classList.add('hidden');
         }
 
-        function openDashboard() {
-            if (!currentToken) {
-                openLogin();
-                return;
-            }
-            document.getElementById('dashboard').scrollIntoView({ behavior: 'smooth' });
-            fetchDashboardData();
-        }
-
         // ============ Generate Pairing ============
         async function generatePairing() {
             try {
@@ -492,7 +444,8 @@
                 const response = await fetch('/api/generate-pairing', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${currentToken}`
                     },
                     body: JSON.stringify({ deviceId })
                 });
@@ -520,7 +473,8 @@
                 const response = await fetch('/api/pair-device', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${currentToken}`
                     },
                     body: JSON.stringify({ pairingCode: code })
                 });
@@ -530,8 +484,8 @@
                     localStorage.setItem('smartcheck_token', data.token);
                     currentToken = data.token;
                     closePairing();
-                    openDashboard();
                     alert(currentLang === 'ar' ? '✅ تم إقران الجهاز بنجاح!' : '✅ Device paired successfully!');
+                    refreshData();
                 } else {
                     alert(currentLang === 'ar' ? '❌ فشل الإقران: ' + data.error : '❌ Pair failed: ' + data.error);
                 }
@@ -562,7 +516,7 @@
                 if (response.status === 401) {
                     localStorage.removeItem('smartcheck_token');
                     currentToken = null;
-                    openLogin();
+                    window.location.href = '/login.html';
                     return;
                 }
                 
@@ -584,7 +538,6 @@
 
         // ============ Update Dashboard ============
         function updateDashboard(devices) {
-            // Update stats
             document.getElementById('totalDevices').textContent = devices.length;
             
             const completed = devices.filter(d => d.status === 'completed');
@@ -593,12 +546,10 @@
             const reports = devices.filter(d => d.lastReportId);
             document.getElementById('totalReports').textContent = reports.length;
             
-            // Calculate average score
             const scores = devices.filter(d => d.overallScore && d.overallScore > 0).map(d => d.overallScore);
             const avg = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
             document.getElementById('avgScore').textContent = avg + '%';
             
-            // Update table
             const tbody = document.getElementById('devicesTable');
             if (devices.length === 0) {
                 tbody.innerHTML = `
@@ -699,7 +650,6 @@
                 : `Are you sure you want to delete device ${deviceId}?`;
             
             if (confirm(confirmMsg)) {
-                // Call API to delete
                 alert(currentLang === 'ar' ? '🗑️ تم حذف الجهاز' : '🗑️ Device deleted');
                 refreshData();
             }
@@ -722,21 +672,14 @@
             }
             
             loadLanguage();
-            checkAuth();
+            initUser();
             
-            // Load from Firebase if logged in
-            if (currentToken) {
-                fetchDashboardData();
-            } else {
-                const tbody = document.getElementById('devicesTable');
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="text-center py-8 text-gray-400">
-                            ${currentLang === 'ar' ? '🔒 يرجى تسجيل الدخول لعرض الأجهزة' : '🔒 Please login to view devices'}
-                        </td>
-                    </tr>
-                `;
+            if (!currentToken) {
+                window.location.href = '/login.html';
+                return;
             }
+            
+            fetchDashboardData();
         });
 
         // ============ Refresh ============
