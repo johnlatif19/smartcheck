@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCheck - Professional Device Testing Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0f;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .animate-gradient {
+            background-size: 300% 300%;
+            animation: gradient 6s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(102, 126, 234, 0.5); }
+            to { text-shadow: 0 0 20px rgba(102, 126, 234, 0.8), 0 0 30px rgba(102, 126, 234, 0.4); }
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <nav class="fixed w-full z-50 glass-effect">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center">
+                            <i class="ri-smartphone-line text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">SmartCheck</span>
+                    </div>
+                    
+                    <div class="flex items-center space-x-6">
+                        <a href="#features" class="text-gray-300 hover:text-white transition-colors hidden md:block">Features</a>
+                        <a href="#dashboard" class="text-gray-300 hover:text-white transition-colors hidden md:block">Dashboard</a>
+                        <button onclick="openLogin()" class="px-6 py-2 gradient-bg rounded-lg text-white font-medium hover:opacity-90 transition-opacity">
+                            Login
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="pt-32 pb-20 px-4">
+            <div class="max-w-7xl mx-auto text-center">
+                <div class="inline-block px-4 py-1.5 gradient-bg rounded-full text-sm font-medium mb-6 animate-gradient">
+                    🚀 Professional Device Testing Platform
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 glow">
+                    SmartCheck
+                </h1>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-10">
+                    Complete device diagnostics, real-time testing, and comprehensive reports for buying and selling smartphones.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="openDashboard()" class="px-8 py-3 gradient-bg rounded-xl text-white font-semibold hover:opacity-90 transition-opacity flex items-center justify-center space-x-2">
+                        <i class="ri-dashboard-line"></i>
+                        <span>Open Dashboard</span>
+                    </button>
+                    <button onclick="openPairing()" class="px-8 py-3 glass-effect rounded-xl text-white font-semibold hover:bg-white/10 transition-all flex items-center justify-center space-x-2">
+                        <i class="ri-qr-code-line"></i>
+                        <span>Pair Device</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section id="features" class="py-20 px-4">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-16">Why SmartCheck?</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card-hover glass-effect rounded-2xl p-8 text-center">
+                        <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="ri-smartphone-line text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Complete Testing</h3>
+                        <p class="text-gray-400">15+ hardware tests including touch, camera, sensors, battery, and more.</p>
+                    </div>
+                    <div class="card-hover glass-effect rounded-2xl p-8 text-center">
+                        <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="ri-file-pdf-line text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Detailed Reports</h3>
+                        <p class="text-gray-400">Generate professional PDF reports with overall score and device condition.</p>
+                    </div>
+                    <div class="card-hover glass-effect rounded-2xl p-8 text-center">
+                        <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="ri-live-line text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Real-time Sync</h3>
+                        <p class="text-gray-400">Live data synchronization between mobile app and web dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="py-20 px-4 bg-white/5">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-16">Live Dashboard</h2>
+                
+                <!-- Stats -->
+                <div class="grid md:grid-cols-4 gap-6 mb-10">
+                    <div class="glass-effect rounded-2xl p-6 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Total Devices</p>
+                                <p class="text-2xl font-bold" id="totalDevices">0</p>
+                            </div>
+                            <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center">
+                                <i class="ri-smartphone-line text-white text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-effect rounded-2xl p-6 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Active Tests</p>
+                                <p class="text-2xl font-bold" id="activeTests">0</p>
+                            </div>
+                            <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center">
+                                <i class="ri-test-tube-line text-white text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-effect rounded-2xl p-6 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Reports Generated</p>
+                                <p class="text-2xl font-bold" id="totalReports">0</p>
+                            </div>
+                            <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center">
+                                <i class="ri-file-pdf-line text-white text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-effect rounded-2xl p-6 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Avg Score</p>
+                                <p class="text-2xl font-bold" id="avgScore">0%</p>
+                            </div>
+                            <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center">
+                                <i class="ri-star-line text-white text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Devices List -->
+                <div class="glass-effect rounded-2xl p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold">Recent Devices</h3>
+                        <div class="flex space-x-4">
+                            <input type="text" placeholder="Search devices..." id="searchInput" 
+                                   class="bg-white/10 rounded-lg px-4 py-2 text-white placeholder-gray-400 border border-white/10 focus:outline-none focus:border-purple-500">
+                            <button onclick="refreshData()" class="px-4 py-2 gradient-bg rounded-lg text-white">
+                                <i class="ri-refresh-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-white/10">
+                                    <th class="text-left py-3 text-gray-400 font-medium">Device ID</th>
+                                    <th class="text-left py-3 text-gray-400 font-medium hidden md:table-cell">Model</th>
+                                    <th class="text-left py-3 text-gray-400 font-medium hidden lg:table-cell">Status</th>
+                                    <th class="text-left py-3 text-gray-400 font-medium">Score</th>
+                                    <th class="text-left py-3 text-gray-400 font-medium hidden md:table-cell">Date</th>
+                                    <th class="text-left py-3 text-gray-400 font-medium">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="devicesTable">
+                                <tr>
+                                    <td colspan="6" class="text-center py-8 text-gray-400">Loading devices...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Modal -->
+        <div id="loginModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+            <div class="glass-effect rounded-2xl p-8 max-w-md w-full mx-4">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Login</h2>
+                    <button onclick="closeLogin()" class="text-gray-400 hover:text-white">
+                        <i class="ri-close-line text-2xl"></i>
+                    </button>
+                </div>
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="mb-4">
+                        <label class="block text-gray-300 mb-2">Email</label>
+                        <input type="email" id="loginEmail" required 
+                               class="w-full bg-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 border border-white/10 focus:outline-none focus:border-purple-500">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-300 mb-2">Password</label>
+                        <input type="password" id="loginPassword" required 
+                               class="w-full bg-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 border border-white/10 focus:outline-none focus:border-purple-500">
+                    </div>
+                    <button type="submit" class="w-full gradient-bg rounded-lg py-3 text-white font-semibold hover:opacity-90 transition-opacity">
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Pairing Modal -->
+        <div id="pairingModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+            <div class="glass-effect rounded-2xl p-8 max-w-md w-full mx-4">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Pair Device</h2>
+                    <button onclick="closePairing()" class="text-gray-400 hover:text-white">
+                        <i class="ri-close-line text-2xl"></i>
+                    </button>
+                </div>
+                <div class="text-center">
+                    <div id="qrCodeContainer" class="flex justify-center mb-4">
+                        <div class="w-48 h-48 bg-white rounded-xl flex items-center justify-center">
+                            <i class="ri-qr-code-line text-6xl text-gray-400"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 mb-2">Scan QR Code with SmartCheck App</p>
+                    <p class="text-gray-400 mb-4">or enter pairing code:</p>
+                    <div class="flex gap-2 justify-center">
+                        <input type="text" id="pairingCodeInput" maxlength="6" 
+                               class="w-40 bg-white/10 rounded-lg px-4 py-3 text-center text-white text-2xl font-mono placeholder-gray-400 border border-white/10 focus:outline-none focus:border-purple-500">
+                        <button onclick="pairDevice()" class="px-6 py-3 gradient-bg rounded-lg text-white font-semibold">
+                            Pair
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentToken = localStorage.getItem('smartcheck_token');
+        let devicesData = [];
+        
+        // Check authentication
+        function checkAuth() {
+            if (!currentToken) {
+                document.querySelector('nav button:last-child').textContent = 'Login';
+            } else {
+                document.querySelector('nav button:last-child').textContent = 'Dashboard';
+            }
+        }
+        
+        // Navigation
+        function openLogin() {
+            if (currentToken) {
+                openDashboard();
+            } else {
+                document.getElementById('loginModal').classList.remove('hidden');
+            }
+        }
+        
+        function closeLogin() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+        
+        function openPairing() {
+            generatePairing();
+            document.getElementById('pairingModal').classList.remove('hidden');
+        }
+        
+        function closePairing() {
+            document.getElementById('pairingModal').classList.add('hidden');
+        }
+        
+        function openDashboard() {
+            if (!currentToken) {
+                openLogin();
+                return;
+            }
+            document.getElementById('dashboard').scrollIntoView({ behavior: 'smooth' });
+            fetchDashboardData();
+        }
+        
+        // Handle Login
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Demo login - In production, this would call your backend
+            if (email === 'admin@smartcheck.com' && password === 'SmartCheck2024') {
+                const token = 'demo_jwt_token_' + Date.now();
+                localStorage.setItem('smartcheck_token', token);
+                currentToken = token;
+                closeLogin();
+                openDashboard();
+                alert('✅ Login successful! Welcome to SmartCheck.');
+            } else {
+                alert('❌ Invalid credentials. Please try again.');
+            }
+        }
+        
+        // Generate Pairing Code
+        async function generatePairing() {
+            try {
+                const deviceId = 'device_' + Math.random().toString(36).substr(2, 9);
+                const response = await fetch('/api/generate-pairing', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ deviceId })
+                });
+                
+                const data = await response.json();
+                if (data.qrCode) {
+                    document.querySelector('#qrCodeContainer div').innerHTML = 
+                        `<img src="${data.qrCode}" class="w-full h-full object-contain">`;
+                    document.getElementById('pairingCodeInput').value = data.pairingCode;
+                }
+            } catch (error) {
+                console.error('Error generating pairing:', error);
+            }
+        }
+        
+        // Pair Device
+        async function pairDevice() {
+            const code = document.getElementById('pairingCodeInput').value;
+            if (code.length !== 6) {
+                alert('Please enter a valid 6-digit pairing code');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/pair-device', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ pairingCode: code })
+                });
+                
+                const data = await response.json();
+                if (data.token) {
+                    localStorage.setItem('smartcheck_token', data.token);
+                    currentToken = data.token;
+                    closePairing();
+                    openDashboard();
+                    alert('✅ Device paired successfully!');
+                } else {
+                    alert('❌ Failed to pair device: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error pairing device:', error);
+                alert('❌ Error pairing device. Please try again.');
+            }
+        }
+        
+        // Fetch Dashboard Data
+        async function fetchDashboardData() {
+            try {
+                const response = await fetch('/api/devices', {
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`
+                    }
+                });
+                
+                if (response.status === 401) {
+                    localStorage.removeItem('smartcheck_token');
+                    currentToken = null;
+                    openLogin();
+                    return;
+                }
+                
+                const devices = await response.json();
+                devicesData = devices;
+                updateDashboard(devices);
+            } catch (error) {
+                console.error('Error fetching dashboard data:', error);
+            }
+        }
+        
+        // Update Dashboard
+        function updateDashboard(devices) {
+            // Update stats
+            document.getElementById('totalDevices').textContent = devices.length;
+            
+            const completed = devices.filter(d => d.status === 'completed');
+            document.getElementById('activeTests').textContent = completed.length;
+            
+            const reports = devices.filter(d => d.lastReportId);
+            document.getElementById('totalReports').textContent = reports.length;
+            
+            // Update table
+            const tbody = document.getElementById('devicesTable');
+            if (devices.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-8 text-gray-400">No devices paired yet</td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = devices.map(device => `
+                <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                    <td class="py-3 text-sm font-mono">${device.deviceId || device.id}</td>
+                    <td class="py-3 hidden md:table-cell">${device.model || 'N/A'}</td>
+                    <td class="py-3 hidden lg:table-cell">
+                        <span class="px-3 py-1 rounded-full text-xs font-medium
+                            ${device.status === 'completed' ? 'bg-green-500/20 text-green-400' :
+                              device.status === 'paired' ? 'bg-blue-500/20 text-blue-400' :
+                              'bg-yellow-500/20 text-yellow-400'}">
+                            ${device.status || 'pending'}
+                        </span>
+                    </td>
+                    <td class="py-3">
+                        <span class="font-bold ${device.overallScore > 70 ? 'text-green-400' : 'text-yellow-400'}">
+                            ${device.overallScore || 'N/A'}%
+                        </span>
+                    </td>
+                    <td class="py-3 hidden md:table-cell text-sm text-gray-400">
+                        ${device.createdAt ? new Date(device.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}
+                    </td>
+                    <td class="py-3">
+                        <button onclick="viewReport('${device.lastReportId || device.id}')" 
+                                class="text-purple-400 hover:text-purple-300 transition-colors">
+                            <i class="ri-eye-line"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // View Report
+        function viewReport(reportId) {
+            if (!reportId || reportId === 'undefined') {
+                alert('No report available for this device');
+                return;
+            }
+            alert(`📊 Viewing report: ${reportId}\n\nThis would open the detailed device report with all test results.`);
+        }
+        
+        // Search
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput?.addEventListener('input', function(e) {
+                const query = e.target.value.toLowerCase();
+                const filtered = devicesData.filter(device => 
+                    (device.deviceId || '').toLowerCase().includes(query) ||
+                    (device.model || '').toLowerCase().includes(query)
+                );
+                updateDashboard(filtered);
+            });
+        });
+        
+        // Refresh
+        function refreshData() {
+            fetchDashboardData();
+        }
+        
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            if (currentToken) {
+                fetchDashboardData();
+            }
+        }, 30000);
+        
+        // Initialize
+        checkAuth();
+        
+        // Demo - Load sample data after 2 seconds
+        setTimeout(() => {
+            const sampleDevices = [
+                { id: 'device_1', deviceId: 'SM-G998B', model: 'Samsung Galaxy S21 Ultra', status: 'completed', overallScore: 92, createdAt: { seconds: Date.now() / 1000 - 3600 } },
+                { id: 'device_2', deviceId: 'iPhone13Pro', model: 'iPhone 13 Pro', status: 'paired', overallScore: 88, createdAt: { seconds: Date.now() / 1000 - 7200 } },
+                { id: 'device_3', deviceId: 'Pixel6', model: 'Google Pixel 6', status: 'pending', overallScore: 0, createdAt: { seconds: Date.now() / 1000 - 14400 } }
+            ];
+            updateDashboard(sampleDevices);
+            devicesData = sampleDevices;
+        }, 2000);
+    </script>
+</body>
+</html>
