@@ -579,7 +579,7 @@ app.get('/signup', (req, res) => {
   res.sendFile(__dirname + '/public/signup.html');
 });
 
-app.get('/', (req, res) => {
+app.get('/index', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
